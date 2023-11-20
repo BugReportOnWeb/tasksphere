@@ -3,9 +3,23 @@ import Task from '../models/task';
 
 let tasks: Task[] = [];
 
-const getAllTasks = (_req: Request, res: Response) => res.send(tasks);
+const getAllTasks = (_req: Request, res: Response) => {
+    res.send(tasks);
+}
 
-const addNewTask = (req: Request, res: Response) => {
+const getSpecificTask = (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    const task = tasks.find(task => task.id === parseInt(id));
+
+    if (task) {
+        res.send(task);
+    } else {
+        res.status(404).send({ error: 'Task not found. Invalid task id' })
+    }
+}
+
+const addTask = (req: Request, res: Response) => {
     const { title, description } = req.body;
 
     const newTask: Task = {
@@ -32,7 +46,7 @@ const deleteTask = (req: Request, res: Response) => {
 
         res.send(deletedTask);
     } else {
-        res.status(400).send({ error: 'Invalid task id' });
+        res.status(404).send({ error: 'Task not found. Invalid task id' });
     }
 }
 
@@ -48,13 +62,14 @@ const updateTask = (req: Request, res: Response) => {
 
         res.send(updatedTask);
     } else {
-        res.status(400).send({ error: 'Invalid task id' });
+        res.status(404).send({ error: 'Task not found. Invalid task id' });
     }
 }
 
 export {
     getAllTasks,
-    addNewTask,
+    getSpecificTask,
+    addTask,
     deleteTask,
     updateTask
 }
