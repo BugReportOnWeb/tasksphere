@@ -1,11 +1,11 @@
 import { Request, Response } from 'express';
-import Task from '../models/tasks';
+import Task from '../models/task';
 
 let tasks: Task[] = [];
 
 const getAllTasks = (_req: Request, res: Response) => res.send(tasks);
 
-const addNewtask = (req: Request, res: Response) => {
+const addNewTask = (req: Request, res: Response) => {
     const { title, description } = req.body;
 
     const newTask: Task = {
@@ -54,7 +54,7 @@ const updateTask = (req: Request, res: Response) => {
 
 export {
     getAllTasks,
-    addNewtask,
+    addNewTask,
     deleteTask,
     updateTask
 }

@@ -1,6 +1,6 @@
 import express from 'express';
 import {
-    addNewtask,
+    addNewTask,
     deleteTask,
     getAllTasks,
     updateTask
@@ -9,7 +9,7 @@ import {
 const router = express();
 
 router.get('/', getAllTasks);
-router.post('/', addNewtask);
+router.post('/', addNewTask);
 router.delete('/:id', deleteTask);
 router.put('/:id', updateTask);
 
