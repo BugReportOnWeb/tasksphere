@@ -17,7 +17,7 @@ git clone https://github.com/BugReportOnWeb/ts-express-task.git
 
 2. Navigate to the project directory.
 ```bash
-cd ts-express-task.git
+cd ts-express-task
 ```
 
 3. Install dependencies using npm or yarn.
@@ -27,7 +27,7 @@ npm install
 yarn install
 ```
 
-## Installation
+## Usage
 1. Start the server.
 ```bash
 npm run dev
