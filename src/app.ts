@@ -1,7 +1,10 @@
 import express from 'express';
+import * as dotenv from 'dotenv';
 import { taskRoutes } from './routes/taskRoutes';
 
-const PORT = 3000;
+dotenv.config();
+
+const PORT = process.env.PORT;
 const app = express();
 
 app.use(express.json());
