@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import Task from '../models/task';
+import { v4 as uuidv4 } from 'uuid';
 
 let tasks: Task[] = [];
 
@@ -9,8 +10,7 @@ const getAllTasks = (_req: Request, res: Response) => {
 
 const getSpecificTask = (req: Request, res: Response) => {
     const { id } = req.params;
-
-    const task = tasks.find(task => task.id === parseInt(id));
+    const task = tasks.find(task => task.id === id);
 
     if (task) {
         res.send(task);
@@ -21,10 +21,10 @@ const getSpecificTask = (req: Request, res: Response) => {
 
 const addTask = (req: Request, res: Response) => {
     const { title, description } = req.body;
+    const newId = uuidv4();
 
     const newTask: Task = {
-        // TODO: Fix 'id' bug (use uuid)
-        id: tasks.length + 1,
+        id: newId,
         title,
         description,
         completed: false
@@ -37,8 +37,7 @@ const addTask = (req: Request, res: Response) => {
 
 const deleteTask = (req: Request, res: Response) => {
     const { id } = req.params;
-
-    const deletedTask = tasks.find(task => task.id === parseInt(id));
+    const deletedTask = tasks.find(task => task.id === id);
 
     if (deletedTask) {
         const deleteTaskIndex = tasks.indexOf(deletedTask);
@@ -52,8 +51,7 @@ const deleteTask = (req: Request, res: Response) => {
 
 const updateTask = (req: Request, res: Response) => {
     const { id } = req.params;
-
-    const updatedTask = tasks.find(task => task.id === parseInt(id));
+    const updatedTask = tasks.find(task => task.id === id);
 
     if (updatedTask) {
         updatedTask.title = req.body.title || updatedTask.title;
