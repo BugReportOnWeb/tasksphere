@@ -46,3 +46,6 @@ npm run dev
 - TypeScript
 - Express
 - Node.js
+
+## Contribution
+Contributions to enhance the functionality or improve the codebase are welcome! Feel free to open issues or pull requests.
