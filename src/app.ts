@@ -3,6 +3,7 @@ import * as dotenv from 'dotenv';
 import { taskRoutes } from './routes/taskRoutes';
 import logging from './middleware/logging';
 import serverError from './middleware/serverError';
+import cors from 'cors';
 
 dotenv.config();
 
@@ -11,6 +12,7 @@ const app = express();
 
 // Middlewares
 app.use(express.json());
+app.use(cors());
 app.use(logging);
 
 // Routes
