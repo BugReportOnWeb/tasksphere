@@ -5,16 +5,20 @@ import { validationResult } from 'express-validator';
 
 let tasks: Task[] = [];
 
-const getAllTasks = (_req: Request, res: Response) => {
-    res.send(tasks);
+const getAllTasks = (req: Request, res: Response) => {
+    const email = req.email;
+    const userTasks = tasks.filter(task => task.userEmail === email);
+
+    res.send(userTasks);
 }
 
 const getSpecificTask = (req: Request, res: Response) => {
+    const email = req.email;
     const { id } = req.params;
-    const task = tasks.find(task => task.id === id);
+    const task = tasks.find(task => task.id === id && task.userEmail === email);
 
     if (!task) {
-        const error = "Task not found, Inavlid task id";
+        const error = "Task not found. Invalid task id";
         return res.status(404).send({ error });
     }
 
@@ -22,6 +26,8 @@ const getSpecificTask = (req: Request, res: Response) => {
 }
 
 const addTask = (req: Request, res: Response) => {
+    // CHECK: use of 'non-null assertion operator'
+    const email = req.email!;
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
@@ -35,7 +41,8 @@ const addTask = (req: Request, res: Response) => {
         id: newId,
         title,
         description,
-        completed: false
+        completed: false,
+        userEmail: email
     }
 
     tasks.push(newTask)
@@ -44,11 +51,12 @@ const addTask = (req: Request, res: Response) => {
 }
 
 const deleteTask = (req: Request, res: Response) => {
+    const email = req.email;
     const { id } = req.params;
-    const deletedTask = tasks.find(task => task.id === id);
+    const deletedTask = tasks.find(task => task.id === id && task.userEmail === email);
 
     if (!deletedTask) {
-        const error = "Task not found, Inavlid task id";
+        const error = "Task not found. Invalid task id";
         return res.status(404).send({ error });
     }
 
@@ -59,11 +67,12 @@ const deleteTask = (req: Request, res: Response) => {
 }
 
 const updateTask = (req: Request, res: Response) => {
+    const email = req.email;
     const { id } = req.params;
-    const updatedTask = tasks.find(task => task.id === id);
+    const updatedTask = tasks.find(task => task.id === id && task.userEmail === email);
 
     if (!updatedTask) {
-        const error = "Task not found, Inavlid task id";
+        const error = "Task not found. Invalid task id";
         return res.status(404).send({ error });
     }
 
