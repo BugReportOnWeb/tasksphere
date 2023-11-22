@@ -51,8 +51,8 @@ Authorization: Bearer YOUR_JWT_TOKEN_HERE
 Once authorized, users can perform CRUD operations on tasks associated with their account using API endpoints.
 
 ## API Endpoints
-- **POST /api/user/register**: Register a new user.
-- **POST /api/user/login**: Log in and authenticate a user.
+- **POST /api/users/register**: Register a new user.
+- **POST /api/users/login**: Log in and authenticate a user.
 - **GET /api/tasks**: Retrieve tasks for the authenticated user.
 - **GET /api/tasks/:id**: Retrieve details of a specific task for the authenticated user.
 - **POST /api/tasks**: Create a new task for the authenticated user.

@@ -22,7 +22,7 @@ app.use(cors());
 app.use(logging);
 
 // Routes
-app.use('/api/user', userRoutes);
+app.use('/api/users', userRoutes);
 app.use('/api/tasks', taskRoutes);
 
 // Uncatched error handling
