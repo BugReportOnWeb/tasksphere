@@ -22,8 +22,8 @@ app.use(cors());
 app.use(logging);
 
 // Routes
-app.use('/user', userRoutes);
-app.use('/tasks', taskRoutes);
+app.use('/api/user', userRoutes);
+app.use('/api/tasks', taskRoutes);
 
 // Uncatched error handling
 app.use(serverError);
