@@ -6,11 +6,6 @@ import { createToken } from "../lib/utils";
 
 let users: User[] = [];
 
-// For debug purpose
-const getAllUsers = (_req: Request, res: Response) => {
-    res.send(users);
-}
-
 const loginUser = async (req: Request, res: Response) => {
     // CHECK: Reconsider validation on login
     const errors = validationResult(req);
@@ -74,5 +69,4 @@ const registerUser = async (req: Request, res: Response) => {
 export {
     loginUser,
     registerUser,
-    getAllUsers
 };
