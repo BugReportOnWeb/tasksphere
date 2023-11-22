@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { RequestHandler } from 'express';
 import {
     getAllTasks,
     getSpecificTask,
@@ -6,9 +6,13 @@ import {
     deleteTask,
     updateTask
 } from '../controllers/taskControllers';
-import taskValidationRules from '../lib/validation';
+import { taskValidationRules } from '../lib/validation';
+import requireAuth from '../middleware/requireAuth';
 
 const router = express();
+
+// CHECK: use of 'as'
+router.use(requireAuth);
 
 router.get('/', getAllTasks);
 router.get('/:id', getSpecificTask);
