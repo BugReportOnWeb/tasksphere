@@ -1,11 +1,17 @@
+// Core deps
 import express from 'express';
 import * as dotenv from 'dotenv';
-import { taskRoutes } from './routes/taskRoutes';
-import logging from './middleware/logging';
-import serverError from './middleware/serverError';
 import cors from 'cors';
 
 dotenv.config();
+
+// Middlewares
+import logging from './middleware/logging';
+import serverError from './middleware/serverError';
+
+// Routes
+import { userRoutes } from './routes/userRoutes';
+import { taskRoutes } from './routes/taskRoutes';
 
 const PORT = process.env.PORT;
 const app = express();
@@ -16,6 +22,7 @@ app.use(cors());
 app.use(logging);
 
 // Routes
+app.use('/user', userRoutes);
 app.use('/tasks', taskRoutes);
 
 // Uncatched error handling
