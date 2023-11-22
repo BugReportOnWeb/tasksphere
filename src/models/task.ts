@@ -3,6 +3,7 @@ interface Task {
     title: string;
     description: string;
     completed: boolean;
+    userEmail: string
 }
 
 export default Task;
