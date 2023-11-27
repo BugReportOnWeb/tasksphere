@@ -4,7 +4,7 @@ import { userValidationRules } from "../lib/validation";
 
 const router = Router();
 
-router.get('/login', userValidationRules, loginUser);
-router.get('/register', userValidationRules, registerUser);
+router.post('/login', userValidationRules, loginUser);
+router.post('/register', userValidationRules, registerUser);
 
 export { router as userRoutes };

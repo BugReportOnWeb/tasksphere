@@ -11,7 +11,6 @@ import requireAuth from '../middleware/requireAuth';
 
 const router = express();
 
-// CHECK: use of 'as'
 router.use(requireAuth);
 
 router.get('/', getAllTasks);
