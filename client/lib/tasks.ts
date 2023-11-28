@@ -1,8 +1,8 @@
 import { Task, UpdateTaskReq } from "@/types/Task";
 
-const token = process.env.TEMP_TOKEN;
+const token = process.env.NEXT_PUBLIC_TEMP_TOKEN as string;
 
-const getTasks = async (): Promise<Task[] | undefined> => {
+const getTasks = async (): Promise<Task[]> => {
     try {
         const res = await fetch('http://localhost:4000/api/tasks', {
             method: "GET",
@@ -16,13 +16,13 @@ const getTasks = async (): Promise<Task[] | undefined> => {
 
         return res.json();
     } catch (error) {
-        // TODO: something with error
         console.error(error);
+        throw error;
     }
 }
 
-const updateTask = async (newTask: Task): Promise<Task | undefined> => {
-    const updatedTask: UpdateTaskReq = { 
+const updateTask = async (newTask: Task): Promise<Task> => {
+    const updatedTask: UpdateTaskReq = {
         title: newTask.title,
         description: newTask.description,
         completed: newTask.completed
@@ -31,10 +31,9 @@ const updateTask = async (newTask: Task): Promise<Task | undefined> => {
     try {
         const res = await fetch(`http://localhost:4000/api/tasks/${newTask.id}`, {
             method: "PUT",
-            headers: { 
+            headers: {
                 "Authorization": `Bearer ${token}`,
                 "Content-Type": "application/json"
-                
             },
             body: JSON.stringify(updatedTask),
             cache: 'no-store'
@@ -46,12 +45,12 @@ const updateTask = async (newTask: Task): Promise<Task | undefined> => {
 
         return res.json();
     } catch (error) {
-        // TODO: something with error
         console.error(error);
+        throw error;
     }
 }
 
-const removeTask = async (taskId: string): Promise<Task | undefined> => {
+const removeTask = async (taskId: string): Promise<Task> => {
     try {
         const res = await fetch(`http://localhost:4000/api/tasks/${taskId}`, {
             method: "DELETE",
@@ -65,8 +64,8 @@ const removeTask = async (taskId: string): Promise<Task | undefined> => {
 
         return res.json();
     } catch (error) {
-        // TODO: something with error
         console.error(error);
+        throw Error;
     }
 }
 
