@@ -46,7 +46,7 @@ const TaskCard = ({ task }: TaskCardProps) => {
     }
 
     return (
-        <div className='flex justify-between items-start border border-[#27272a] p-6 rounded-md'>
+        <div className='flex justify-between items-start border border-[#27272a] p-6 rounded-md gap-5'>
             <div className='flex flex-col space-y-1.5'>
                 <h1 className='text-2xl font-bold'>{task.title}</h1>
                 <h1 className='text-[#a1a1aa] text-sm'>{task.description}</h1>
