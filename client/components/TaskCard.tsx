@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { TaskContext } from "@/context/tasksContext";
+import { TaskContext } from "@/context/TaskContext";
 import { Task, TaskContextType } from "@/types/Task"
 import { removeTask, updateTask } from "@/lib/tasks";
 import Button from "./Button";
