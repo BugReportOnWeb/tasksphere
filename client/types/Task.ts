@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react"
+
 interface Task {
     id: string
     title: string
@@ -8,4 +10,9 @@ interface Task {
 
 interface UpdateTaskReq extends Omit<Task , "id" | "userEmail"> {}
 
-export type { Task, UpdateTaskReq };
+interface TaskContextType {
+    tasks: Task[] | null;
+    setTasks: Dispatch<SetStateAction<Task[] | null>>;
+}
+
+export type { Task, UpdateTaskReq, TaskContextType };
