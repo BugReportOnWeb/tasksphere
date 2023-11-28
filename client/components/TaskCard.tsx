@@ -55,9 +55,9 @@ const TaskCard = ({ task }: TaskCardProps) => {
                 </h1>
             </div>
             <div className='flex flex-col gap-3'>
-                {!task.completed && <Button onClick={() => handleUpdateTask(task.id)} color="green">Done {'->'}</Button>}
-                {task.completed && <Button onClick={() => handleUpdateTask(task.id)} color="blue">{'<-'} Revert</Button>}
-                <Button onClick={() => handleRemoveTask(task.id)} color="red">Delete</Button>
+                {!task.completed && <Button onClick={() => handleUpdateTask(task.id)} className="hover:border-green-500">Done {'->'}</Button>}
+                {task.completed && <Button onClick={() => handleUpdateTask(task.id)} className="hover:border-blue-500">{'<-'} Revert</Button>}
+                <Button onClick={() => handleRemoveTask(task.id)} className="hover:border-red-500">Delete</Button>
             </div>
         </div>
     )
