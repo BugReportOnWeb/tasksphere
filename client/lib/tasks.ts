@@ -10,11 +10,11 @@ const getTasks = async (): Promise<Task[]> => {
             cache: 'no-store'
         })
 
-        if (!res.ok) {
-            throw new Error('Failed to fetch (retrieve all tasks) data')
-        }
+        // CHECK: Check of either 'throw <error>' OR 'throw new Error(<error>)'
+        const data = await res.json();
+        if (!res.ok) throw data.error;
 
-        return res.json();
+        return data;
     } catch (error) {
         console.error(error);
         throw error;
@@ -39,11 +39,10 @@ const updateTask = async (newTask: Task): Promise<Task> => {
             cache: 'no-store'
         })
 
-        if (!res.ok) {
-            throw new Error('Failed to fetch (update task) data')
-        }
+        const data = await res.json();
+        if (!res.ok) throw data.error;
 
-        return res.json();
+        return data;
     } catch (error) {
         console.error(error);
         throw error;
@@ -57,15 +56,36 @@ const removeTask = async (taskId: string): Promise<Task> => {
             headers: { "Authorization": `Bearer ${token}` },
             cache: 'no-store'
         })
+        
+        const data = await res.json();
+        if (!res.ok) throw data.error;
 
-        if (!res.ok) {
-            throw new Error('Failed to fetch (delete task) data')
-        }
-
-        return res.json();
+        return data;
     } catch (error) {
         console.error(error);
-        throw Error;
+        throw error;
+    }
+}
+
+const addTask = async (newTask: UpdateTaskReq): Promise<Task> => {
+    try {
+        const res = await fetch(`http://localhost:4000/api/tasks`, {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(newTask),
+            cache: 'no-store'
+        })
+
+        const data = await res.json();
+        if (!res.ok) throw data.error;
+
+        return data;
+    } catch (error) {
+        console.error(error);
+        throw error;
     }
 }
 
@@ -73,4 +93,5 @@ export {
     getTasks,
     removeTask,
     updateTask,
+    addTask
 };
