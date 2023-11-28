@@ -41,6 +41,9 @@ const addTask = (req: Request, res: Response) => {
         id: newId,
         title,
         description,
+        // CHEKC: Fix value of completed
+        // Either have it opt out from validation rules
+        // Or have a dynamic value for the completed field
         completed: false,
         userEmail: email
     }
@@ -84,7 +87,13 @@ const updateTask = (req: Request, res: Response) => {
 
     updatedTask.title = req.body.title || updatedTask.title;
     updatedTask.description = req.body.description || updatedTask.description;
-    updatedTask.completed = req.body.completed || updatedTask.completed;
+    updatedTask.completed = req.body.completed;
+
+    // XOR -------------- ((need vs get)need vs get)
+    // 0 (req) 0 (original) -> 0 | 0 
+    // 0 (req) 1 (original) -> 0 | 1
+    // 1 (req) 0 (original) -> 1 | 1
+    // 1 (req) 1 (original) -> 1 | 0
 
     res.send(updatedTask);
 }
