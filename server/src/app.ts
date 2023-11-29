@@ -2,6 +2,7 @@
 import express from 'express';
 import * as dotenv from 'dotenv';
 import cors from 'cors';
+import mongoose from 'mongoose';
 
 dotenv.config();
 
@@ -13,7 +14,8 @@ import serverError from './middleware/serverError';
 import { userRoutes } from './routes/userRoutes';
 import { taskRoutes } from './routes/taskRoutes';
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT as string;
+const MONGO_URI = process.env.MONGO_URI as string;
 const app = express();
 
 // Middlewares
@@ -28,6 +30,12 @@ app.use('/api/tasks', taskRoutes);
 // Uncatched error handling
 app.use(serverError);
 
-app.listen(PORT, () => {
-    console.log(`Server listening on http://127.0.0.1:${PORT}`)
-})
+
+mongoose.connect(MONGO_URI)
+    .then(() => {
+        app.listen(PORT, () => {
+            console.log(`Server listening on http://127.0.0.1:${PORT}`)
+        })
+    })
+    .catch(error => console.log(error));
+
