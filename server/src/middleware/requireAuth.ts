@@ -4,13 +4,14 @@ import {
     Request,
     Response
 } from "express";
+import UserModel from '../models/user';
 const JWT_SECRET = process.env.JWT_SECRET as string;
 
 interface Payload extends JwtPayload {
     email: string
 }
 
-const requireAuth = (req: Request, res: Response, next: NextFunction) => {
+const requireAuth = async (req: Request, res: Response, next: NextFunction) => {
     const { authorization } = req.headers;
 
     if (!authorization) {
@@ -23,6 +24,13 @@ const requireAuth = (req: Request, res: Response, next: NextFunction) => {
     try {
         // CHECK: Use of 'as'
         const payload = jwt.verify(token, JWT_SECRET) as Payload;
+        const user = await UserModel.findOne({ email: payload.email });
+
+        if (!user) {
+            const error = 'User doesn\'t exist';
+            return res.status(404).send({ error });
+        }
+
         req.email = payload.email;
         next();
     } catch (err) {
