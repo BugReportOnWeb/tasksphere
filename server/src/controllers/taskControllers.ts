@@ -1,21 +1,30 @@
 import { Request, Response } from 'express';
-import Task from '../models/task';
-import { v4 as uuidv4 } from 'uuid';
+import  TaskModel from '../models/task';
 import { validationResult } from 'express-validator';
+import mongoose from 'mongoose';
 
-let tasks: Task[] = [];
-
-const getAllTasks = (req: Request, res: Response) => {
+const getAllTasks = async (req: Request, res: Response) => {
     const email = req.email;
-    const userTasks = tasks.filter(task => task.userEmail === email);
+    const userTasks = await TaskModel.find({ userEmail: email });
+
+    // CHECK: Try this later and implement with client
+    // if (userTasks.length === 0) {
+    //     res.status(404).send({ error: 'No workouts found' });
+    // }
 
     res.send(userTasks);
 }
 
-const getSpecificTask = (req: Request, res: Response) => {
+const getSpecificTask = async (req: Request, res: Response) => {
     const email = req.email;
     const { id } = req.params;
-    const task = tasks.find(task => task.id === id && task.userEmail === email);
+
+    if (!mongoose.Types.ObjectId.isValid) {
+        const error = "Task not found. Invalid task id";
+        return res.status(404).send({ error });
+    }
+
+    const task = await TaskModel.findOne({ _id: id, userEmail: email })
 
     if (!task) {
         const error = "Task not found. Invalid task id";
@@ -25,75 +34,78 @@ const getSpecificTask = (req: Request, res: Response) => {
     res.send(task);
 }
 
-const addTask = (req: Request, res: Response) => {
-    // CHECK: use of 'non-null assertion operator'
-    const email = req.email!;
+const addTask = async (req: Request, res: Response) => {
+    const email = req.email;
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
         return res.status(400).send({ errors: errors.array() });
     }
 
-    const { title, description } = req.body;
-    const newId = uuidv4();
-
-    const newTask: Task = {
-        id: newId,
-        title,
-        description,
-        // CHEKC: Fix value of completed
-        // Either have it opt out from validation rules
-        // Or have a dynamic value for the completed field
-        completed: false,
+    // CHEKC: Fix value of completed
+    // Either have it opt out from validation rules
+    // Or have a dynamic value for the completed field
+    const newTaskValues = {
+        ...req.body,
         userEmail: email
     }
 
-    tasks.push(newTask)
+    const newTask = await TaskModel.create(newTaskValues);
+
+    if (!newTask) {
+        res.status(400).send({ error: "Error occured adding task" });
+    }
 
     res.send(newTask);
 }
 
-const deleteTask = (req: Request, res: Response) => {
+const deleteTask = async (req: Request, res: Response) => {
     const email = req.email;
     const { id } = req.params;
-    const deletedTask = tasks.find(task => task.id === id && task.userEmail === email);
+
+    if (!mongoose.Types.ObjectId.isValid) {
+        const error = "Task not found. Invalid task id";
+        return res.status(404).send({ error });
+    }
+
+    const deletedTask = await TaskModel.findOneAndDelete({ _id: id, userEmail: email });
 
     if (!deletedTask) {
         const error = "Task not found. Invalid task id";
         return res.status(404).send({ error });
     }
 
-    const deleteTaskIndex = tasks.indexOf(deletedTask);
-    tasks.splice(deleteTaskIndex, 1);
-
     res.send(deletedTask);
 }
 
-const updateTask = (req: Request, res: Response) => {
+const updateTask = async (req: Request, res: Response) => {
     const email = req.email;
     const { id } = req.params;
-    const updatedTask = tasks.find(task => task.id === id && task.userEmail === email);
-
-    if (!updatedTask) {
-        const error = "Task not found. Invalid task id";
-        return res.status(404).send({ error });
-    }
-
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
         return res.status(400).send({ erorr: errors.array() });
     }
 
-    updatedTask.title = req.body.title || updatedTask.title;
-    updatedTask.description = req.body.description || updatedTask.description;
-    updatedTask.completed = req.body.completed;
+    if (!mongoose.Types.ObjectId.isValid) {
+        const error = "Task not found. Invalid task id";
+        return res.status(404).send({ error });
+    }
 
-    // XOR -------------- ((need vs get)need vs get)
-    // 0 (req) 0 (original) -> 0 | 0 
-    // 0 (req) 1 (original) -> 0 | 1
-    // 1 (req) 0 (original) -> 1 | 1
-    // 1 (req) 1 (original) -> 1 | 0
+    const updateTaskValues = {
+        ...req.body,
+        userEmail: email
+    };
+
+    const updatedTask = await TaskModel.findOneAndUpdate(
+        { _id: id, userEmail: email },
+        updateTaskValues
+    )
+
+    if (!updatedTask) {
+        const error = "Task not found. Invalid task id";
+        return res.status(404).send({ error });
+    }
 
     res.send(updatedTask);
 }

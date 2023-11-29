@@ -1,10 +1,8 @@
 import { Request, Response } from "express";
 import { genSalt, hash, compare } from 'bcrypt';
-import User from "../models/user";
+import UserModel from "../models/user";
 import { validationResult } from "express-validator";
 import { createToken } from "../lib/utils";
-
-let users: User[] = [];
 
 const loginUser = async (req: Request, res: Response) => {
     // CHECK: Reconsider validation on login
@@ -15,18 +13,18 @@ const loginUser = async (req: Request, res: Response) => {
     }
 
     const { email, password } = req.body;
-    const user = users.find(user => user.email === email);
+    const user = await UserModel.findOne({ email });
 
     if (!user) {
         const error = 'User doesn\'t exist';
-        return res.status(400).send({ error });
+        return res.status(404).send({ error });
     }
 
     const correctPassword = await compare(password, user.password);
 
     if (!correctPassword) {
         const error = 'Wrong password';
-        return res.status(400).send({ error });
+        return res.status(401).send({ error });
     }
 
     const token = createToken(email);
@@ -36,14 +34,14 @@ const loginUser = async (req: Request, res: Response) => {
 }
 
 const registerUser = async (req: Request, res: Response) => {
-   const errors = validationResult(req);
+    const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
         return res.status(400).send({ errors: errors.array() });
     }
 
     const { email, password } = req.body;
-    const user = users.find(user => user.email === email);
+    const user = await UserModel.findOne({ email });
 
     if (user) {
         const error = 'User already exist';
@@ -53,15 +51,15 @@ const registerUser = async (req: Request, res: Response) => {
     const salt = await genSalt(10);
     const hashedPassword = await hash(password, salt);
 
-    const newUser = {
+    const newUserValues = {
         email,
         password: hashedPassword
     }
 
-    users.push(newUser);
+    const newUser = await UserModel.create(newUserValues);
 
-    const token = createToken(email);
-    const response = { email, token };
+    const token = createToken(newUser.email);
+    const response = { email: newUser.email, token };
 
     res.send(response);
 }
