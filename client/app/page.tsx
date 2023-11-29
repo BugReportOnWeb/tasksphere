@@ -1,19 +1,19 @@
 'use client'
 
-import { useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { TaskContext } from "@/context/TaskContext";
-import { Task } from "@/types/Task";
-import { addTask, getTasks } from "@/lib/tasks";
-import Tasks from "@/components/Tasks";
-import Button from "@/components/Button";
+import { TaskContextType } from "@/types/Task";
 import { sampleTask } from "@/lib/constants";
+import { addTask, getTasks } from "@/lib/tasks";
+import Button from "@/components/Button";
+import Tasks from "@/components/Tasks";
 
 const App = () => {
     // TODO: Change to dynamic when using login res from localStorage
     const currentUser = 'Dev';
     const currentUserEmail = 'testing@testing.com';
 
-    const [tasks, setTasks] = useState<Task[] | null>(null);
+    const { setTasks } = useContext(TaskContext) as TaskContextType;
 
     const handleAddTask = async () => {
         // Optimistic UI
@@ -52,18 +52,16 @@ const App = () => {
     }, [])
 
     return (
-        <TaskContext.Provider value={{ tasks, setTasks }}>
-            <div className='my-40'>
-                <div className='flex justify-between items-center mb-10'>
-                    <h1 className='text-5xl font-extrabold'>{currentUser}'s Data</h1>
-                    <Button onClick={handleAddTask} className='bg-white text-[#27272a] hover:bg-white/90'>Add Task</Button>
-                </div>
-                <div className='flex justify-between gap-10'>
-                    <Tasks completed={false} />
-                    <Tasks completed={true} />
-                </div>
+        <div className='my-40'>
+            <div className='flex justify-between items-center mb-10'>
+                <h1 className='text-5xl font-extrabold'>{currentUser}'s Data</h1>
+                <Button onClick={handleAddTask} className='bg-white text-[#27272a] hover:bg-white/90'>Add Task</Button>
             </div>
-        </TaskContext.Provider>
+            <div className='flex justify-between gap-10'>
+                <Tasks completed={false} />
+                <Tasks completed={true} />
+            </div>
+        </div>
     )
 }
 
