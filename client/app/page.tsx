@@ -19,7 +19,12 @@ const App = () => {
         // Optimistic UI
         const randomId = Math.floor(Math.random() * 1000).toString();
         setTasks(prevTasks => {
-            return [...prevTasks!, { ...sampleTask, id: randomId, userEmail: currentUserEmail }];
+            return [...prevTasks!, {
+                ...sampleTask,
+                __v: 0,
+                _id: randomId,
+                userEmail: currentUserEmail
+            }];
         })
 
         // Actual action
@@ -30,7 +35,7 @@ const App = () => {
         // Update to new server received value (id, userEmail)
         setTasks(prevTasks => (
             prevTasks!.map(task => (
-                task.id === randomId
+                task._id === randomId
                     ? addedTask
                     : task
             ))
@@ -53,7 +58,6 @@ const App = () => {
                     <h1 className='text-5xl font-extrabold'>{currentUser}'s Data</h1>
                     <Button onClick={handleAddTask} className='bg-white text-[#27272a] hover:bg-white/90'>Add Task</Button>
                 </div>
-                {/* CHECK: Using 'not null operator' intead of '&&' */}
                 <div className='flex justify-between gap-10'>
                     <Tasks completed={false} />
                     <Tasks completed={true} />
