@@ -1,9 +1,23 @@
-interface Task {
-    id: string;
+import mongoose from "mongoose";
+const { Schema } = mongoose;
+
+// Type for Typscript
+interface TaskType {
     title: string;
     description: string;
     completed: boolean;
     userEmail: string
-}
+};
 
-export default Task;
+// Type/Schema for MongoDB
+const TaskSchema = new Schema({
+    title: { type: String, required: true },
+    description: { type: String, required: true },
+    completed: { type: String, required: true },
+    userEmail: { type: String, required: true }
+})
+
+const TaskModel = mongoose.model('Task', TaskSchema);
+
+export { TaskType };
+export default TaskModel;
