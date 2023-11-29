@@ -29,7 +29,7 @@ const updateTask = async (newTask: Task): Promise<Task> => {
     }
 
     try {
-        const res = await fetch(`http://localhost:4000/api/tasks/${newTask.id}`, {
+        const res = await fetch(`http://localhost:4000/api/tasks/${newTask._id}`, {
             method: "PUT",
             headers: {
                 "Authorization": `Bearer ${token}`,

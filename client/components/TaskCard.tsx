@@ -14,7 +14,7 @@ const TaskCard = ({ task }: TaskCardProps) => {
     const handleRemoveTask = async (taskId: string) => {
         // Optimistic UI
         setTasks(prevTasks => {
-            return prevTasks!.filter(task => task.id !== taskId);
+            return prevTasks!.filter(task => task._id !== taskId);
         })
 
         // Actual action
@@ -26,14 +26,14 @@ const TaskCard = ({ task }: TaskCardProps) => {
         // // Optimistic UI
         setTasks(prevTasks => {
             return prevTasks!.map(
-                task => task.id === taskId
+                task => task._id === taskId
                     ? { ...task, completed: !task.completed }
                     : task
             )
         })
 
         // Actual action
-        let newUpdatedTask = tasks!.find(task => task.id === taskId);
+        let newUpdatedTask = tasks!.find(task => task._id === taskId);
         if (newUpdatedTask) newUpdatedTask = {
             ...newUpdatedTask,
             completed: !newUpdatedTask.completed
@@ -55,9 +55,9 @@ const TaskCard = ({ task }: TaskCardProps) => {
                 </h1>
             </div>
             <div className='flex flex-col gap-3'>
-                {!task.completed && <Button onClick={() => handleUpdateTask(task.id)} className="hover:border-green-500">Done {'->'}</Button>}
-                {task.completed && <Button onClick={() => handleUpdateTask(task.id)} className="hover:border-blue-500">{'<-'} Revert</Button>}
-                <Button onClick={() => handleRemoveTask(task.id)} className="hover:border-red-500">Delete</Button>
+                {!task.completed && <Button onClick={() => handleUpdateTask(task._id)} className="hover:border-green-500">Done {'->'}</Button>}
+                {task.completed && <Button onClick={() => handleUpdateTask(task._id)} className="hover:border-blue-500">{'<-'} Revert</Button>}
+                <Button onClick={() => handleRemoveTask(task._id)} className="hover:border-red-500">Delete</Button>
             </div>
         </div>
     )

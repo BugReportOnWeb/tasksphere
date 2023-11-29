@@ -26,7 +26,7 @@ const Tasks = ({ completed }: TasksProps) => {
 
             {tasks?.map(task => (
                 task.completed === completed && <TaskCard
-                    key={task.id}
+                    key={task._id}
                     task={task}
                 />
             ))}
