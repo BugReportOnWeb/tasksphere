@@ -22,11 +22,10 @@ const register = async (userDetails: UserDetails) => {
         })
 
         const data = await res.json();
-        if (!res.ok) throw data.error;
+        if (!res.ok) throw new Error(data.error);
 
         return data;
     } catch (error) {
-        console.error(error);
         throw error;
     }
 }
