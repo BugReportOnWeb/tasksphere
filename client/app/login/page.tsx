@@ -1,8 +1,6 @@
 const Login = () => {
     return (
-        <form className='border border-blue-500'>
-            <h1>Login</h1>
-        </form>
+        <h1>Login page</h1>
     )
 }
 
