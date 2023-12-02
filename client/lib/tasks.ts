@@ -2,6 +2,8 @@ import { Task, UpdateTaskReq } from "@/types/Task";
 
 const token = process.env.NEXT_PUBLIC_TEMP_TOKEN as string;
 
+// TODO: Fix all 'throw data.error' to actual Error instance
+
 const getTasks = async (): Promise<Task[]> => {
     try {
         const res = await fetch('http://localhost:4000/api/tasks', {
@@ -12,7 +14,7 @@ const getTasks = async (): Promise<Task[]> => {
 
         // CHECK: Check of either 'throw <error>' OR 'throw new Error(<error>)'
         const data = await res.json();
-        if (!res.ok) throw data.error;
+        if (!res.ok) throw data;
 
         return data;
     } catch (error) {
@@ -40,7 +42,7 @@ const updateTask = async (newTask: Task): Promise<Task> => {
         })
 
         const data = await res.json();
-        if (!res.ok) throw data.error;
+        if (!res.ok) throw data;
 
         return data;
     } catch (error) {
@@ -58,7 +60,7 @@ const removeTask = async (taskId: string): Promise<Task> => {
         })
         
         const data = await res.json();
-        if (!res.ok) throw data.error;
+        if (!res.ok) throw data;
 
         return data;
     } catch (error) {
@@ -80,7 +82,7 @@ const addTask = async (newTask: UpdateTaskReq): Promise<Task> => {
         })
 
         const data = await res.json();
-        if (!res.ok) throw data.error;
+        if (!res.ok) throw data;
 
         return data;
     } catch (error) {

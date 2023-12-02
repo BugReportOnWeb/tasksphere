@@ -30,7 +30,6 @@ app.use('/api/tasks', taskRoutes);
 // Uncatched error handling
 app.use(serverError);
 
-
 mongoose.connect(MONGO_URI)
     .then(() => {
         app.listen(PORT, () => {
