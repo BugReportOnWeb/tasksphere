@@ -1,17 +1,14 @@
 'use client'
 
-import AuthButton from "@/components/AuthButton"
-// import { useState } from "react"
-import { registerUser } from "../actions";
-import { useFormState } from "react-dom";
 import { useEffect } from "react";
+import { useFormState } from "react-dom";
 import { redirect } from "next/navigation";
+import { registerUser } from "../../actions";
+import AuthButton from "@/components/AuthButton"
+import { AuthUserCheck } from "@/types/auth";
 
 // CHECK: WTF am I doing here!?
-const initialState: {
-    user: any | null;
-    error: string | null;
-} = {
+const initialState: AuthUserCheck = {
     user: null,
     error: null
 }
@@ -64,7 +61,7 @@ const Register = () => {
                             className='rounded-md text-sm border border-[#27272a] h-10 py-2 px-3 bg-transparent placeholder:text-[#7f8ea3] placeholder:text-sm focus:outline-none focus:outline-offset-2 focus:outline-[#27272a]'
                         />
                     </div>
-                    {/* Change to '<Button />' component */}
+                    {/* TODO?: Change to '<Button />' component */}
                     <AuthButton />
                 </form>
 
