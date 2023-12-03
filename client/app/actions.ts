@@ -1,6 +1,7 @@
 'use server'
 
 import { register } from "@/lib/user";
+import { AuthUser } from "@/types/auth";
 
 const registerUser = async (_prevState: any, formData: FormData) => {
     // CHECK: Valid use of 'as' in this
@@ -11,7 +12,9 @@ const registerUser = async (_prevState: any, formData: FormData) => {
     const userDetails = { username, email, password };
 
     try {
-        const user = await register(userDetails);
+        // CHECK?: Type checking could be done on the first server request
+        // check on @/lib/user
+        const user: AuthUser = await register(userDetails);
         const newState = {
             user,
             error: null
