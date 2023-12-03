@@ -4,9 +4,10 @@
 import { Inter } from 'next/font/google'
 import './globals.css'
 import { useState } from 'react';
-import { Task } from '@/types/Task';
 import { AuthContext } from '@/context/AuthContext';
+import { AuthUser } from '@/types/auth';
 import { TaskContext } from '@/context/TaskContext';
+import { Task } from '@/types/Task';
 
 interface RootLayoutProps {
     children: React.ReactNode;
@@ -21,7 +22,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 const RootLayout = ({ children }: RootLayoutProps) => {
     const [tasks, setTasks] = useState<Task[] | null>(null);
-    const [currentAuthUser, setCurrentAuthUser] = useState<string | null>(null);
+    const [currentAuthUser, setCurrentAuthUser] = useState<AuthUser | null>(null);
 
     return (
         <html lang="en">
