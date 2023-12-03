@@ -3,6 +3,8 @@ import { TaskContext } from "@/context/TaskContext";
 import { Task, TaskContextType } from "@/types/Task"
 import { removeTask, updateTask } from "@/lib/tasks";
 import Button from "./Button";
+import { AuthContext } from "@/context/AuthContext";
+import { AuthContextType } from "@/types/auth";
 
 interface TaskCardProps {
     task: Task;
@@ -10,6 +12,7 @@ interface TaskCardProps {
 
 const TaskCard = ({ task }: TaskCardProps) => {
     const { tasks, setTasks } = useContext(TaskContext) as TaskContextType;
+    const { currentAuthUser } = useContext(AuthContext) as AuthContextType;
 
     const handleRemoveTask = async (taskId: string) => {
         // Optimistic UI
@@ -18,8 +21,14 @@ const TaskCard = ({ task }: TaskCardProps) => {
         })
 
         // Actual action
-        const removedTask = await removeTask(taskId);
-        console.log(removedTask);
+        if (currentAuthUser) {
+            const removedTask = await removeTask(
+                taskId,
+                currentAuthUser?.token
+            );
+
+            console.log(removedTask);
+        }
     }
 
     const handleUpdateTask = async (taskId: string) => {
@@ -39,8 +48,12 @@ const TaskCard = ({ task }: TaskCardProps) => {
             completed: !newUpdatedTask.completed
         };
 
-        if (newUpdatedTask) {
-            const completedTask = await updateTask(newUpdatedTask);
+        if (newUpdatedTask && currentAuthUser) {
+            const completedTask = await updateTask(
+                newUpdatedTask,
+                currentAuthUser?.token
+            );
+
             console.log(completedTask);
         }
     }
