@@ -1,10 +1,14 @@
 import { Task, UpdateTaskReq } from "@/types/Task";
 
-const token = process.env.NEXT_PUBLIC_TEMP_TOKEN as string;
-
+// const token = process.env.NEXT_PUBLIC_TEMP_TOKEN as string;
 // TODO: Fix all 'throw data.error' to actual Error instance
 
-const getTasks = async (): Promise<Task[]> => {
+// CHECK: If works every time any API endpoint is called
+// THEN: Passon token as param on every request
+// const { currentAuthUser } = useContext(AuthContext) as AuthContextType;
+// const token = currentAuthUser?.token;
+
+const getTasks = async (token: string): Promise<Task[]> => {
     try {
         const res = await fetch('http://localhost:4000/api/tasks', {
             method: "GET",
@@ -23,7 +27,7 @@ const getTasks = async (): Promise<Task[]> => {
     }
 }
 
-const updateTask = async (newTask: Task): Promise<Task> => {
+const updateTask = async (newTask: Task, token: string): Promise<Task> => {
     const updatedTask: UpdateTaskReq = {
         title: newTask.title,
         description: newTask.description,
@@ -51,7 +55,7 @@ const updateTask = async (newTask: Task): Promise<Task> => {
     }
 }
 
-const removeTask = async (taskId: string): Promise<Task> => {
+const removeTask = async (taskId: string, token: string): Promise<Task> => {
     try {
         const res = await fetch(`http://localhost:4000/api/tasks/${taskId}`, {
             method: "DELETE",
@@ -69,7 +73,7 @@ const removeTask = async (taskId: string): Promise<Task> => {
     }
 }
 
-const addTask = async (newTask: UpdateTaskReq): Promise<Task> => {
+const addTask = async (newTask: UpdateTaskReq, token: string): Promise<Task> => {
     try {
         const res = await fetch(`http://localhost:4000/api/tasks`, {
             method: "POST",
