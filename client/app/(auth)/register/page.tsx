@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import { registerUser } from "../../actions";
 import AuthButton from "@/components/AuthButton"
 import { AuthUserCheck } from "@/types/auth";
+import Link from "next/link";
 
 // CHECK: WTF am I doing here!?
 const initialState: AuthUserCheck = {
@@ -28,7 +29,7 @@ const Register = () => {
 
     return (
         <div className='min-h-screen flex justify-center items-center'>
-            <div className='flex flex-col gap-5'>
+            <div className='flex flex-col gap-4'>
                 <div className='text-center flex flex-col gap-1'>
                     <h1 className='text-3xl font-semibold'>Create an account</h1>
                     <h1 className='text-sm text-[#7f8ea3]'>Enter specified details for a new account</h1>
@@ -62,10 +63,10 @@ const Register = () => {
                         />
                     </div>
                     {/* TODO?: Change to '<Button />' component */}
-                    <AuthButton />
+                    <AuthButton type='register' />
                 </form>
-
-                <div className='text-red-400 text-sm text-center'>{state?.error}</div>
+                <h1 className='text-sm text-[#7f8ea3] text-center'>Already have an account? <Link className='underline underline-offset-4 decoration-[#e1e7ef]/40 hover:decoration-[#e1e7ef]/80' href='/login'>Login</Link></h1>
+                <div className='text-red-400 text-sm text-center -mt-2'>{state?.error}</div>
             </div>
         </div>
     )
