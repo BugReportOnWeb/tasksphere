@@ -80,3 +80,7 @@ npm run dev
 
 ## Contribution
 Contributions to enhance the functionality or improve the codebase are welcome! Feel free to open issues or pull requests.
+
+## License
+This project is licensed under the [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html) - see the [LICENSE](LICENSE.md) file for details.
+
