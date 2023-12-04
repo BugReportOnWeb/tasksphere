@@ -1,6 +1,6 @@
 'use server'
 
-import { register } from "@/lib/user";
+import { login, register } from "@/lib/user";
 import { AuthUser } from "@/types/auth";
 
 const registerUser = async (_prevState: any, formData: FormData) => {
@@ -20,7 +20,7 @@ const registerUser = async (_prevState: any, formData: FormData) => {
             error: null
         };
 
-        return newState
+        return newState;
     } catch (error) {
         if (error instanceof Error) {
             const newState = {
@@ -33,4 +33,30 @@ const registerUser = async (_prevState: any, formData: FormData) => {
     }
 }
 
-export { registerUser };
+const loginUser = async(_prevState: any, formData: FormData) => {
+    const email = formData.get('email') as string;
+    const password = formData.get('password') as string;
+
+    const userDetails = { email, password };
+
+    try {
+        const user: AuthUser = await login(userDetails);
+        const newState = {
+            user, 
+            error: null
+        }
+
+        return newState;
+    } catch (error) {
+        if (error instanceof Error) {
+            const newState = {
+                user: null,
+                error: error.message
+            }
+
+            return newState;
+        }
+    }
+}
+
+export { registerUser, loginUser };
