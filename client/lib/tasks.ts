@@ -8,9 +8,13 @@ import { Task, UpdateTaskReq } from "@/types/Task";
 // const { currentAuthUser } = useContext(AuthContext) as AuthContextType;
 // const token = currentAuthUser?.token;
 
+const BASE_URL = process.env.NODE_ENV === 'development'
+    ? process.env.DEV_URL
+    : process.env.PROD_URL
+
 const getTasks = async (token: string): Promise<Task[]> => {
     try {
-        const res = await fetch('http://localhost:4000/api/tasks', {
+        const res = await fetch(`${BASE_URL}/api/tasks`, {
             method: "GET",
             headers: { "Authorization": `Bearer ${token}` },
             cache: 'no-store'
@@ -35,7 +39,7 @@ const updateTask = async (newTask: Task, token: string): Promise<Task> => {
     }
 
     try {
-        const res = await fetch(`http://localhost:4000/api/tasks/${newTask._id}`, {
+        const res = await fetch(`${BASE_URL}/api/tasks/${newTask._id}`, {
             method: "PUT",
             headers: {
                 "Authorization": `Bearer ${token}`,
@@ -57,7 +61,7 @@ const updateTask = async (newTask: Task, token: string): Promise<Task> => {
 
 const removeTask = async (taskId: string, token: string): Promise<Task> => {
     try {
-        const res = await fetch(`http://localhost:4000/api/tasks/${taskId}`, {
+        const res = await fetch(`${BASE_URL}/api/tasks/${taskId}`, {
             method: "DELETE",
             headers: { "Authorization": `Bearer ${token}` },
             cache: 'no-store'
@@ -75,7 +79,7 @@ const removeTask = async (taskId: string, token: string): Promise<Task> => {
 
 const addTask = async (newTask: UpdateTaskReq, token: string): Promise<Task> => {
     try {
-        const res = await fetch(`http://localhost:4000/api/tasks`, {
+        const res = await fetch(`${BASE_URL}/api/tasks`, {
             method: "POST",
             headers: {
                 "Authorization": `Bearer ${token}`,

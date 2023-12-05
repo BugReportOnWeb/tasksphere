@@ -7,12 +7,16 @@ interface RegisterUserDetails {
 
 interface LoginUserDetails extends Omit<RegisterUserDetails, 'username'> {}
 
+const BASE_URL = process.env.NODE_ENV === 'development'
+    ? process.env.DEV_URL
+    : process.env.PROD_URL
+
 const register = async (userDetails: RegisterUserDetails) => {
     const { email, password } = userDetails;
     const newUserDetails = { email, password };
 
     try {
-        const res = await fetch('http://localhost:4000/api/users/register', {
+        const res = await fetch(`${BASE_URL}/api/users/register`, {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(newUserDetails),
@@ -30,7 +34,7 @@ const register = async (userDetails: RegisterUserDetails) => {
 
 const login = async (userDetails: LoginUserDetails) => {
     try {
-        const res = await fetch('http://localhost:4000/api/users/login', {
+        const res = await fetch(`${BASE_URL}/api/users/login`, {
             method: 'POST',
             headers: { "Content-Type": 'application/json' },
             body: JSON.stringify(userDetails),
