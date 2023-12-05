@@ -1,4 +1,5 @@
 import { Task, UpdateTaskReq } from "@/types/Task";
+import { delay } from "./utils";
 
 // const token = process.env.NEXT_PUBLIC_TEMP_TOKEN as string;
 // TODO: Fix all 'throw data.error' to actual Error instance
@@ -13,6 +14,9 @@ const BASE_URL = process.env.NODE_ENV === 'development'
     : process.env.NEXT_PUBLIC_PROD_URL
 
 const getTasks = async (token: string): Promise<Task[]> => {
+    // Use for Skeleton testing
+    // await delay(2500);
+
     try {
         const res = await fetch(`${BASE_URL}/api/tasks`, {
             method: "GET",
