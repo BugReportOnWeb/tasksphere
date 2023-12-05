@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { useFormState } from "react-dom";
 import { redirect } from "next/navigation";
-import { registerUser } from "../../actions";
+import { registerUser } from "@/app/(auth)/actions";
 import AuthButton from "@/components/AuthButton"
 import { AuthUserCheck } from "@/types/auth";
 import Link from "next/link";

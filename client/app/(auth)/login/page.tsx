@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 import AuthButton from "@/components/AuthButton"
 import { AuthUserCheck } from "@/types/auth";
 import Link from "next/link";
-import { loginUser } from "@/app/actions";
+import { loginUser } from "@/app/(auth)/actions";
 
 // CHECK: WTF am I doing here!?
 const initialState: AuthUserCheck = {
