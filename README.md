@@ -26,19 +26,25 @@ cd client/
 npm install
 ```
 
-4. Navigate to the `server/` directory:
+4. Create a `.env.local` file in the `client/` directory and add the following variables:
+```dotenv
+NEXT_PUBLIC_PROD_URL=your_prod_url_if_any
+NEXT_PUBLIC_DEV_URL=http://localhost:4000
+```
+
+5. Navigate to the `server/` directory:
 ```bash
 cd ../server/
 ```
 
-5. Install server dependencies:
+6. Install server dependencies:
 ```bash
 npm install
 ```
 
-6. Create a `.env` file in the `server/` directory and add the following variables:
+7. Create a `.env` file in the `server/` directory and add the following variables:
 ```dotenv
-PORT=3000
+PORT=4000
 JWT_SECRET=your_secret_key_here
 MONGO_URI=your_mongodb_uri_here
 ```
