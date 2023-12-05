@@ -9,8 +9,8 @@ import { Task, UpdateTaskReq } from "@/types/Task";
 // const token = currentAuthUser?.token;
 
 const BASE_URL = process.env.NODE_ENV === 'development'
-    ? process.env.DEV_URL
-    : process.env.PROD_URL
+    ? process.env.NEXT_PUBLIC_DEV_URL
+    : process.env.NEXT_PUBLIC_PROD_URL
 
 const getTasks = async (token: string): Promise<Task[]> => {
     try {

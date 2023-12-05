@@ -8,8 +8,8 @@ interface RegisterUserDetails {
 interface LoginUserDetails extends Omit<RegisterUserDetails, 'username'> {}
 
 const BASE_URL = process.env.NODE_ENV === 'development'
-    ? process.env.DEV_URL
-    : process.env.PROD_URL
+    ? process.env.NEXT_PUBLIC_DEV_URL
+    : process.env.NEXT_PUBLIC_PROD_URL
 
 const register = async (userDetails: RegisterUserDetails) => {
     const { email, password } = userDetails;
