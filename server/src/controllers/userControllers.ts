@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { genSalt, hash, compare } from 'bcrypt';
-import UserModel from "../models/user";
+import UserModel, { UserType } from "../models/user";
 import { validationResult } from "express-validator";
 import { createToken } from "../lib/utils";
 
@@ -28,7 +28,11 @@ const loginUser = async (req: Request, res: Response) => {
     }
 
     const token = createToken(email);
-    const response = { email, token };
+    const response = {
+        username: user.username,
+        email: user.email,
+        token
+    };
 
     res.send(response);
 }
@@ -40,7 +44,7 @@ const registerUser = async (req: Request, res: Response) => {
         return res.status(400).send({ errors: errors.array() });
     }
 
-    const { email, password } = req.body;
+    const { username, email, password } = req.body;
     const user = await UserModel.findOne({ email });
 
     if (user) {
@@ -51,7 +55,8 @@ const registerUser = async (req: Request, res: Response) => {
     const salt = await genSalt(10);
     const hashedPassword = await hash(password, salt);
 
-    const newUserValues = {
+    const newUserValues: UserType = {
+        username,
         email,
         password: hashedPassword
     }
@@ -59,7 +64,11 @@ const registerUser = async (req: Request, res: Response) => {
     const newUser = await UserModel.create(newUserValues);
 
     const token = createToken(newUser.email);
-    const response = { email: newUser.email, token };
+    const response = {
+        username: newUser.username,
+        email: newUser.email,
+        token
+    };
 
     res.send(response);
 }
