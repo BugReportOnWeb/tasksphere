@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 
 interface AuthUser {
+    username: string;
     email: string;
     token: string;
 } 
