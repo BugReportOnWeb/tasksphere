@@ -6,7 +6,9 @@ const taskValidationRules = [
     body('completed').isBoolean().withMessage('Completed must be a boolean'),
 ]
 
-const userValidationRules = [
+const registerValidationRules = [
+    body('username')
+        .notEmpty().withMessage('Username is requried'),
     body('email')
         .notEmpty().withMessage('Email is required')
         .isEmail().withMessage('Invalid email'),
@@ -15,4 +17,13 @@ const userValidationRules = [
         .isStrongPassword().withMessage('Password not strong enough')
 ]
 
-export { taskValidationRules, userValidationRules };
+const loginValidationRules = [
+    body('email')
+        .notEmpty().withMessage('Email is required')
+        .isEmail().withMessage('Invalid email'),
+    body('password')
+        .notEmpty().withMessage('Password is required')
+        .isStrongPassword().withMessage('Password not strong enough')
+]
+
+export { taskValidationRules, registerValidationRules, loginValidationRules };
