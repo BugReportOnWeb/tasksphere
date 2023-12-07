@@ -73,7 +73,7 @@ const App = () => {
     }, [])
 
     return (
-        <div className='my-40'>
+        <div className='pt-[10.5rem] pb-20'>
             <div className='flex justify-between items-center mb-10'>
                 <h1 className='text-5xl font-extrabold'>{currentAuthUser?.username}'s Data</h1>
                 <Button onClick={handleAddTask} className='bg-white text-[#27272a] hover:bg-white/90'>Add Task</Button>
