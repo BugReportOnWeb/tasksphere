@@ -64,18 +64,18 @@ npm run dev
 
 3. Access the client interface at http://localhost:3000.
 
-4. Ensure your MongoDB server is running and accessible with the provided URI in the .env file.
+4. Ensure your MongoDB server is running and accessible with the provided URI in the `.env` file.
 
 ## API Endpoints
 - **User Authentication:**
-    - POST /api/users/register: Register a new user.
-    - POST /api/users/login: Log in and authenticate a user.
+    - POST `/api/users/register`: Register a new user.
+    - POST `/api/users/login`: Log in and authenticate a user.
 - **Task Management:**
-    - GET /api/tasks: Retrieve tasks for the authenticated user.
-    - GET /api/tasks/:id: Retrieve details of a specific task for the authenticated user.
-    - POST /api/tasks: Create a new task for the authenticated user.
-    - PUT /api/tasks/:id: Update an existing task belonging to the authenticated user.
-    - DELETE /api/tasks/:id: Delete a task specific to the authenticated user.
+    - GET `/api/tasks`: Retrieve tasks for the authenticated user.
+    - GET `/api/tasks/:id`: Retrieve details of a specific task for the authenticated user.
+    - POST `/api/tasks`: Create a new task for the authenticated user.
+    - PUT `/api/tasks/:id`: Update an existing task belonging to the authenticated user.
+    - DELETE `/api/tasks/:id`: Delete a task specific to the authenticated user.
 
 ## Technologies Used
 - TypeScript
