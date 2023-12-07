@@ -5,13 +5,15 @@ import { TaskContext } from "@/context/TaskContext";
 import { TaskContextType } from "@/types/Task";
 import { AuthContextType } from "@/types/auth";
 import Link from "next/link";
-import { redirect, usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useContext } from "react";
 
 const NavBar = () => {
     const { currentAuthUser, setCurrentAuthUser } = useContext(AuthContext) as AuthContextType;
     const { setTasks } = useContext(TaskContext) as TaskContextType;
+
     const pathname = usePathname();
+    const router = useRouter();
 
     const logoutUser = () => {
         // TODO: Check from 'worktrack'
@@ -19,8 +21,9 @@ const NavBar = () => {
         setCurrentAuthUser(null);
         setTasks(null);
 
-        // CHECK: Redirect not working
-        redirect('/login');
+        // CHECK: Use of redirect from next/navigation?
+        // CHECK: Use of reouter.push('/login')
+        router.replace('/login');
     }
 
     return (
