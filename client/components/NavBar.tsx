@@ -27,12 +27,12 @@ const NavBar = () => {
     }
 
     return (
-        <div className='absolute w-full h-24 flex justify-between items-center'>
+        <div className='absolute w-full h-20 flex justify-between items-center'>
             <h1 className='font-bold uppercase'>Tasksphere</h1>
-            <ul className='flex gap-7 items-center text-sm font-medium'>
+            <ul className='flex gap-6 items-center text-sm font-medium'>
                 {currentAuthUser ? (
                     <>
-                        <li className='font-semibold'>{currentAuthUser.email}</li>
+                        <li>{currentAuthUser.email}</li>
                         <li>
                             <button
                                 onClick={logoutUser}
