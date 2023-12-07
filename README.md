@@ -62,7 +62,7 @@ cd ../client/
 npm run dev
 ```
 
-3. Access the Next.js 14-based client interface at http://localhost:3000.
+3. Access the client interface at http://localhost:3000.
 
 4. Ensure your MongoDB server is running and accessible with the provided URI in the .env file.
 
