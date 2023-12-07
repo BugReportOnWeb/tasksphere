@@ -8,6 +8,7 @@ import { AuthContext } from '@/context/AuthContext';
 import { AuthUser } from '@/types/auth';
 import { TaskContext } from '@/context/TaskContext';
 import { Task } from '@/types/Task';
+import NavBar from '@/components/NavBar';
 
 interface RootLayoutProps {
     children: React.ReactNode;
@@ -26,9 +27,11 @@ const RootLayout = ({ children }: RootLayoutProps) => {
 
     return (
         <html lang="en">
-            <body className={`${inter.className} antialiased max-w-5xl mx-auto leading-7`}>
+            {/* TODO: X-axis padding on smaller screens */}
+            <body className={`relative ${inter.className} antialiased max-w-5xl mx-auto leading-7`}>
                 <AuthContext.Provider value={{ currentAuthUser, setCurrentAuthUser }}>
                     <TaskContext.Provider value={{ tasks, setTasks }}>
+                        <NavBar />
                         {children}
                     </TaskContext.Provider>
                 </AuthContext.Provider>
