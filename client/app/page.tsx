@@ -2,7 +2,7 @@
 
 import { useContext, useEffect } from "react";
 import { TaskContext } from "@/context/TaskContext";
-import { TaskContextType } from "@/types/Task";
+import { TaskContextType } from "@/types/task";
 import { sampleTask } from "@/lib/constants";
 import { addTask, getTasks } from "@/lib/tasks";
 import Button from "@/components/Button";

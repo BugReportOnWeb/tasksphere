@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 // Type for Typscript
-interface TaskType {
+type TaskType = {
     title: string;
     description: string;
     completed: boolean;

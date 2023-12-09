@@ -1,4 +1,4 @@
-import { UpdateTaskReq }  from '../types/Task';
+import { UpdateTaskReq }  from '../types/task';
 
 const sampleTask: UpdateTaskReq = {
     title: "Random title",

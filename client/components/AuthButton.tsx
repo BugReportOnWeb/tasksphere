@@ -2,7 +2,7 @@
 
 import { useFormStatus } from "react-dom";
 
-interface AuthButtonProp {
+type AuthButtonProp = {
     type: string;
 }
 

@@ -7,10 +7,10 @@ import { useState } from 'react';
 import { AuthContext } from '@/context/AuthContext';
 import { AuthUser } from '@/types/auth';
 import { TaskContext } from '@/context/TaskContext';
-import { Task } from '@/types/Task';
+import { Task } from '@/types/task';
 import NavBar from '@/components/NavBar';
 
-interface RootLayoutProps {
+type RootLayoutProps = {
     children: React.ReactNode;
 }
 

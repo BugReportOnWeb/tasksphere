@@ -1,4 +1,5 @@
-import { Task, UpdateTaskReq } from "@/types/Task";
+import { Task, UpdateTaskReq } from "@/types/task";
+
 // import { delay } from "./utils";
 
 // const token = process.env.NEXT_PUBLIC_TEMP_TOKEN as string;

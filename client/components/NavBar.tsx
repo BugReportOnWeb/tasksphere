@@ -2,7 +2,7 @@
 
 import { AuthContext } from "@/context/AuthContext";
 import { TaskContext } from "@/context/TaskContext";
-import { TaskContextType } from "@/types/Task";
+import { TaskContextType } from "@/types/task";
 import { AuthContextType } from "@/types/auth";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";

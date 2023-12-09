@@ -7,9 +7,8 @@ import {
 import UserModel from '../models/user';
 const JWT_SECRET = process.env.JWT_SECRET as string;
 
-interface Payload extends JwtPayload {
-    email: string
-}
+// TODO: Shift to somewhere else (types/) when needed
+type Payload = JwtPayload & { email: string };
 
 const requireAuth = async (req: Request, res: Response, next: NextFunction) => {
     const { authorization } = req.headers;

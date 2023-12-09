@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 // Type for Typescript
-interface UserType {
+type UserType = {
     username: string;
     email: string;
     password: string;

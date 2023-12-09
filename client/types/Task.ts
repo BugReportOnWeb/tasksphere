@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react"
 
-interface Task {
+type Task = {
     __v: number;
     _id: string;
     title: string;
@@ -9,9 +9,9 @@ interface Task {
     userEmail: string;
 }
 
-interface UpdateTaskReq extends Omit<Task , "__v" | "_id" | "userEmail"> {}
+type UpdateTaskReq =  Omit<Task , "__v" | "_id" | "userEmail">;
 
-interface TaskContextType {
+type TaskContextType = {
     tasks: Task[] | null;
     setTasks: Dispatch<SetStateAction<Task[] | null>>;
 }

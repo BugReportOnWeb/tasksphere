@@ -1,12 +1,12 @@
 import { useContext } from "react";
 import { TaskContext } from "@/context/TaskContext";
-import { Task, TaskContextType } from "@/types/Task"
+import { Task, TaskContextType } from "@/types/task"
 import { removeTask, updateTask } from "@/lib/tasks";
 import Button from "./Button";
 import { AuthContext } from "@/context/AuthContext";
 import { AuthContextType } from "@/types/auth";
 
-interface TaskCardProps {
+type TaskCardProps = {
     task: Task;
 }
 

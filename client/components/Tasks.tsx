@@ -1,9 +1,9 @@
 import { TaskContext } from "@/context/TaskContext";
-import { TaskContextType } from "@/types/Task";
+import { TaskContextType } from "@/types/task";
 import { useContext } from "react";
 import TaskCard from "./TaskCard";
 
-interface TasksProps {
+type TasksProps = {
     completed: boolean;
 }
 

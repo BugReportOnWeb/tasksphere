@@ -1,11 +1,11 @@
-// TODO: Move to types
-interface RegisterUserDetails {
+// TODO: Move to (types/) dir or something
+type RegisterUserDetails = {
     username: string,
     email: string,
     password: string
 }
 
-interface LoginUserDetails extends Omit<RegisterUserDetails, 'username'> {}
+type LoginUserDetails = Omit<RegisterUserDetails, 'username'>;
 
 const BASE_URL = process.env.NODE_ENV === 'development'
     ? process.env.NEXT_PUBLIC_DEV_URL

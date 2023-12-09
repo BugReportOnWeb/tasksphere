@@ -1,17 +1,17 @@
 import { Dispatch, SetStateAction } from "react";
 
-interface AuthUser {
+type AuthUser = {
     username: string;
     email: string;
     token: string;
 } 
 
-interface AuthUserCheck {
+type AuthUserCheck = {
     user: AuthUser | null;
     error: string | null
 }
 
-interface AuthContextType {
+type AuthContextType = {
     currentAuthUser: AuthUser | null;
     setCurrentAuthUser: Dispatch<SetStateAction<AuthUser | null>>;
 }
