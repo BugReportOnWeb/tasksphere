@@ -40,6 +40,14 @@ const login = async (userDetails: LoginUserDetails) => {
         })
 
         const data = await res.json();
+
+        // Form validation failed
+        // CHECK: Some brute force method here it seemsj
+        // Refactor ASAP
+        if (res.status === 400) {
+            throw new Error(data.errors[0].msg);
+        }
+
         if (!res.ok) throw new Error(data.error);
 
         return data;
