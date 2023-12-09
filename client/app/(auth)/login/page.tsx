@@ -43,8 +43,16 @@ const Login = () => {
                             name="email"
                             placeholder="Email"
                             required={true}
-                            // CHECK: Use of 'includes' here and down
-                            className={`rounded-md text-sm border ${state?.error?.includes('User') ? 'border-red-500' : 'border-[#27272a]'} h-10 py-2 px-3 bg-transparent placeholder:text-[#7f8ea3] placeholder:text-sm focus:outline-none focus:outline-offset-2 focus:outline-[#27272a]`}
+                            // CHECK: Checking using brute force
+                            // MAYBE: had a type on those error for better categorization
+                            className={
+                                `rounded-md text-sm border
+                                ${state?.error?.includes('User') || state?.error?.includes('email')
+                                    ? 'border-red-500'
+                                    : 'border-[#27272a]'
+                                }
+                                h-10 py-2 px-3 bg-transparent placeholder:text-[#7f8ea3] placeholder:text-sm focus:outline-none focus:outline-offset-2 focus:outline-[#27272a]`
+                            }
                         />
                         <input
                             type="password"
@@ -52,7 +60,14 @@ const Login = () => {
                             name="password"
                             placeholder="Password"
                             required={true}
-                            className={`rounded-md text-sm border ${state?.error?.includes('password') ? 'border-red-500' : 'border-[#27272a]'} border-[#27272a] h-10 py-2 px-3 bg-transparent placeholder:text-[#7f8ea3] placeholder:text-sm focus:outline-none focus:outline-offset-2 focus:outline-[#27272a]`}
+                            className={
+                                `rounded-md text-sm border
+                                ${state?.error?.includes('password')
+                                    ? 'border-red-500'
+                                    : 'border-[#27272a]'
+                                }
+                                h-10 py-2 px-3 bg-transparent placeholder:text-[#7f8ea3] placeholder:text-sm focus:outline-none focus:outline-offset-2 focus:outline-[#27272a]`
+                            }
                         />
                     </div>
                     {/* TODO?: Change to '<Button />' component */}
