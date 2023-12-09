@@ -23,7 +23,6 @@ const loginValidationRules = [
         .isEmail().withMessage('Invalid email'),
     body('password')
         .notEmpty().withMessage('Password is required')
-        .isStrongPassword().withMessage('Password not strong enough')
 ]
 
 export { taskValidationRules, registerValidationRules, loginValidationRules };
