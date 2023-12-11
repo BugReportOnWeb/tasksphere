@@ -15,6 +15,8 @@ const loginUser = async (req: Request, res: Response) => {
     const { email, password } = req.body;
     const user = await UserModel.findOne({ email });
 
+    // Combine the two (email and password) in a single response
+    // For security resaons (not knowing what is wrong from either)
     if (!user) {
         const error = 'User doesn\'t exist';
         return res.status(404).send({ error });
@@ -41,6 +43,9 @@ const registerUser = async (req: Request, res: Response) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
+        // TODO -
+        // Password check should be only after user in DB had been checked
+        // But user field should be checked before password field
         return res.status(400).send({ errors: errors.array() });
     }
 
@@ -49,7 +54,7 @@ const registerUser = async (req: Request, res: Response) => {
 
     if (user) {
         const error = 'User already exist';
-        return res.status(400).send({ error });
+        return res.status(409).send({ error });
     }
 
     const salt = await genSalt(10);
