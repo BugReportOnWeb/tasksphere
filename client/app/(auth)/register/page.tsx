@@ -34,6 +34,7 @@ const Register = () => {
                     <h1 className='text-3xl font-semibold'>Create an account</h1>
                     <h1 className='text-sm text-[#7f8ea3]'>Enter specified details for a new account</h1>
                 </div>
+                {/* TODO?: Add a max width */}
                 <form action={formAction} className='flex flex-col justify-center items-center gap-4'>
                     {/* TODO: Add maxLength to the fields */}
                     <div className='flex flex-col gap-4 w-full'>
@@ -51,7 +52,13 @@ const Register = () => {
                             name="email"
                             placeholder="Email"
                             required={true}
-                            className={`rounded-md text-sm border ${state?.error ? 'border-red-500' : 'border-[#27272a]'} h-10 py-2 px-3 bg-transparent placeholder:text-[#7f8ea3] placeholder:text-sm focus:outline-none focus:outline-offset-2 focus:outline-[#27272a]`}
+                            className={
+                                `rounded-md text-sm border
+                                ${state?.error?.includes('User') || state?.error?.includes('email')
+                                    ? 'border-red-500'
+                                    : 'border-[#27272a]'
+                                }
+                                h-10 py-2 px-3 bg-transparent placeholder:text-[#7f8ea3] placeholder:text-sm focus:outline-none focus:outline-offset-2 focus:outline-[#27272a]`}
                         />
                         <input
                             type="password"
@@ -59,7 +66,14 @@ const Register = () => {
                             name="password"
                             placeholder="Password"
                             required={true}
-                            className='rounded-md text-sm border border-[#27272a] h-10 py-2 px-3 bg-transparent placeholder:text-[#7f8ea3] placeholder:text-sm focus:outline-none focus:outline-offset-2 focus:outline-[#27272a]'
+                            className={
+                                `rounded-md text-sm border
+                                ${state?.error?.includes('Password')
+                                    ? 'border-red-500'
+                                    : 'border-[#27272a]'
+                                }
+                                border-[#27272a] h-10 py-2 px-3 bg-transparent placeholder:text-[#7f8ea3] placeholder:text-sm focus:outline-none focus:outline-offset-2 focus:outline-[#27272a]`
+                            }
                         />
                     </div>
                     {/* TODO?: Change to '<Button />' component */}
