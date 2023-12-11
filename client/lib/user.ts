@@ -1,11 +1,6 @@
 // TODO: Move to (types/) dir or something
-type RegisterUserDetails = {
-    username: string,
-    email: string,
-    password: string
-}
 
-type LoginUserDetails = Omit<RegisterUserDetails, 'username'>;
+import { LoginUserDetails, RegisterUserDetails } from "@/types/auth";
 
 const BASE_URL = process.env.NODE_ENV === 'development'
     ? process.env.NEXT_PUBLIC_DEV_URL

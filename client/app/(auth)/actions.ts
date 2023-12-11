@@ -3,7 +3,7 @@
 import { login, register } from "@/lib/user";
 import { AuthUser, AuthUserCheck } from "@/types/auth";
 
-// Here 'Type' : LoginUserDetails | RegisterUserDetails
+// Type : LoginUserDetails | RegisterUserDetails
 const sendAuthRequest = async <T>(
     userDetails: T,
     authRequest: (userDetails: T) => Promise<any>

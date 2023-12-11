@@ -1,5 +1,13 @@
 import { Dispatch, SetStateAction } from "react";
 
+type RegisterUserDetails = {
+    username: string,
+    email: string,
+    password: string
+}
+
+type LoginUserDetails = Omit<RegisterUserDetails, 'username'>;
+
 type AuthUser = {
     username: string;
     email: string;
@@ -16,4 +24,10 @@ type AuthContextType = {
     setCurrentAuthUser: Dispatch<SetStateAction<AuthUser | null>>;
 }
 
-export type { AuthUser, AuthUserCheck, AuthContextType };
+export type {
+    RegisterUserDetails,
+    LoginUserDetails,
+    AuthUser,
+    AuthUserCheck,
+    AuthContextType
+};
