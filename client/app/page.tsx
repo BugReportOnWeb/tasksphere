@@ -59,6 +59,7 @@ const App = () => {
             setTasks(fetchedTasks);
         }
 
+        // TODO?: Change to cookie base system
         if (localStorage.getItem('user')) {
             // TODO: Fix all these naming confusion
             // Between 'currentUser' and 'currentAuthUser'

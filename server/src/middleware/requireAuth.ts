@@ -25,6 +25,7 @@ const requireAuth = async (req: Request, res: Response, next: NextFunction) => {
         const payload = jwt.verify(token, JWT_SECRET) as Payload;
         const user = await UserModel.findOne({ email: payload.email });
 
+        // CHECK: Why did I do this? Why a check for user?
         if (!user) {
             const error = 'User doesn\'t exist';
             return res.status(404).send({ error });
