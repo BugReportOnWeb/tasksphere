@@ -16,8 +16,7 @@ const NavBar = () => {
     const router = useRouter();
 
     const logoutUser = () => {
-        // TODO: Check from 'worktrack'
-        localStorage.removeItem('user');
+        localStorage.clear();
         setCurrentAuthUser(null);
         setTasks(null);
 

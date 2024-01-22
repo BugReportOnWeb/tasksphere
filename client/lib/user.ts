@@ -1,5 +1,3 @@
-// TODO: Move to (types/) dir or something
-
 import { AuthUser, LoginUserDetails, RegisterUserDetails } from "@/types/auth";
 
 const BASE_URL = process.env.NODE_ENV === 'development'
