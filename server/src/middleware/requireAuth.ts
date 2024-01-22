@@ -1,14 +1,13 @@
-import jwt, { JwtPayload } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 import {
     NextFunction,
     Request,
     Response
 } from "express";
 import UserModel from '../models/user';
-const JWT_SECRET = process.env.JWT_SECRET as string;
+import { Payload } from '../types/auth';
 
-// TODO: Shift to somewhere else (types/) when needed
-type Payload = JwtPayload & { email: string };
+const JWT_SECRET = process.env.JWT_SECRET as string;
 
 const requireAuth = async (req: Request, res: Response, next: NextFunction) => {
     const { authorization } = req.headers;
