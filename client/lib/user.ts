@@ -4,7 +4,6 @@ const BASE_URL = process.env.NODE_ENV === 'development'
     ? process.env.NEXT_PUBLIC_DEV_URL
     : process.env.NEXT_PUBLIC_PROD_URL
 
-// TODO: Move to utils part (maybe?)
 const sendRequest = async (
     userDetails: LoginUserDetails | RegisterUserDetails,
     slug: string
@@ -16,7 +15,6 @@ const sendRequest = async (
             body: JSON.stringify(userDetails),
             cache: 'no-store'
         })
-
         const data = await res.json();
 
         // Possible reponse status code
