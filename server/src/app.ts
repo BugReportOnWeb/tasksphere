@@ -14,7 +14,7 @@ import serverError from './middleware/serverError';
 import { userRoutes } from './routes/userRoutes';
 import { taskRoutes } from './routes/taskRoutes';
 
-const PORT = process.env.PORT as string;
+const PORT = process.env.PORT || 4000;
 const MONGO_URI = process.env.MONGO_URI as string;
 const app = express();
 
@@ -32,9 +32,11 @@ app.use(serverError);
 
 mongoose.connect(MONGO_URI)
     .then(() => {
-        app.listen(PORT, () => {
+        app.listen(+PORT, () => {
             console.log(`Server listening on http://127.0.0.1:${PORT}`)
         })
     })
     .catch(error => console.log(error));
 
+
+export default app;
