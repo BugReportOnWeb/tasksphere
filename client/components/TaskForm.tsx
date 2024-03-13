@@ -5,16 +5,17 @@ import Button from "./Button";
 type TaskFormProps = {
     isPopupOpen: boolean;
     closePopup: () => void;
+    handleAddTask: (task: UpdateTaskReq) => void;
 }
 
-const TaskForm = ({ isPopupOpen, closePopup }: TaskFormProps) => {
+const TaskForm = ({ isPopupOpen, closePopup, handleAddTask }: TaskFormProps) => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const task: UpdateTaskReq = { title, description, completed: false };
-        console.log(task);
+        handleAddTask(task);
 
         setTitle('');
         setDescription('');
